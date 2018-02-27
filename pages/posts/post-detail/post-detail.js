@@ -1,4 +1,6 @@
 var postsData = require('../../../data/posts-data');
+// 微信里面获取app.js（全局变量）
+var app = getApp();
 Page({
   data:{
     isPlayingMusic: false
@@ -22,6 +24,12 @@ Page({
       var postsCollected = {};
       postsCollected[postId] = false;
       wx.setStorageSync('posts_collected', postsCollected);
+    }
+    if(app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId
+      === postId){
+      this.setData({
+        isPlayingMusic: true
+      })
     }
   },
   onColletionTap:function () {
