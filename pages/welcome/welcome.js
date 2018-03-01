@@ -1,6 +1,5 @@
 Page({
   onTap:function () {
-    console.log('oooo')
     // 父页面跳转到子页面
     // wx.navigateTo({
     //   url: '../posts/post'
