@@ -4,6 +4,8 @@ Page({
   // RESTFul API JSON
   // SOAP XML
   //粒度 不是 力度
+  // 为什么这里要定义inTheaters、comingSoon、top250这三个对象
+  // 因为下面的请求是异步的，如果不嫌定义，wxml页面会报错
   data: {
     inTheaters: {},
     comingSoon: {},
@@ -23,6 +25,12 @@ Page({
     this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
     this.getMovieListData(top250Url, "top250", "豆瓣Top250");
   },
+  onMoreTap: function (event) {
+    var category = event.currentTarget.dataset.category;
+    wx.navigateTo({
+      url: 'more-movie/more-movie?category=' + category
+    })
+  },
   getMovieListData:function (url, settedKey, categoryTitle) {
     var that = this;
     wx.request({
@@ -33,6 +41,7 @@ Page({
       },
       success: function (res) {
         that.processDoubanData(res.data, settedKey, categoryTitle)
+        console.log(res.data)
       },
       fail: function (error) {
 
@@ -62,6 +71,7 @@ Page({
       categoryTitle: categoryTitle,
       movies: movies
     }
+    console.log(readyData)
     this.setData(readyData);
   }
 })
