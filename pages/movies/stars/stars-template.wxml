@@ -12,6 +12,6 @@
       <!--<image src="/images/icon/star.png"></image>-->
       <!--<image src="/images/icon/star.png"></image>-->
     </view>
-    <text class="star-score">{{average}}</text>
+    <text class="star-score">{{score}}</text>
   </view>
 </template>

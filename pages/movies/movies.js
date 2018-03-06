@@ -40,8 +40,8 @@ Page({
         "Content-Type": "json"
       },
       success: function (res) {
-        that.processDoubanData(res.data, settedKey, categoryTitle)
         console.log(res.data)
+        that.processDoubanData(res.data, settedKey, categoryTitle)
       },
       fail: function (error) {
 
@@ -71,7 +71,6 @@ Page({
       categoryTitle: categoryTitle,
       movies: movies
     }
-    console.log(readyData)
     this.setData(readyData);
   }
 })
