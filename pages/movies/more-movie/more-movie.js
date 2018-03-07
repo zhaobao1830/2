@@ -1,5 +1,5 @@
-var app = getApp();
 var util = require('../../../utils/util.js');
+var app = getApp();
 Page({
   data: {
     movies: {},
@@ -64,12 +64,23 @@ Page({
       movies: totalMovies
     });
     this.data.totalCount += 20;
+    wx.hideNavigationBarLoading()
   },
   onScrollLower:function (event) {
     var nextUrl = this.data.requestUrl +
         "?start=" + this.data.totalCount + "&count=20";
     util.http(nextUrl, this.processDoubanData)
     wx.showNavigationBarLoading()
+  },
+  onPullDownRefresh:function (event) {
+    console.log('ttt')
+    var refreshUrl = this.data.requestUrl +
+      "?star=0&count=20";
+    this.data.movies = {};
+    this.data.isEmpty = true;
+    this.data.totalCount = 0;
+    util.http(refreshUrl, this.processDoubanData);
+    wx.showNavigationBarLoading();
   },
   onShow:function () {
     // 页面显示

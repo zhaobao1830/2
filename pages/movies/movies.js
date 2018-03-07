@@ -40,7 +40,6 @@ Page({
         "Content-Type": "json"
       },
       success: function (res) {
-        console.log(res.data)
         that.processDoubanData(res.data, settedKey, categoryTitle)
       },
       fail: function (error) {
@@ -72,5 +71,25 @@ Page({
       movies: movies
     }
     this.setData(readyData);
+  },
+  onBindFocus: function (event) {
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    })
+  },
+  onBindBlur: function (event) {
+    // 获取input里面的值
+    var text = event.detail.value;
+    var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
+    this.getMovieListData(searchUrl, "searchResult", "");
+  },
+  onCancelImgTap: function (event) {
+    this.setData({
+        containerShow: true,
+        searchPanelShow: false,
+        searchResult:{}
+      }
+    )
   }
 })
