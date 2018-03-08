@@ -23,7 +23,6 @@ function http(url, callBack) {
       "Content-Type": "json"
     },
     success: function (res) {
-      console.log(res.data)
       callBack(res.data);
     },
     fail: function (error) {
