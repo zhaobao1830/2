@@ -66,14 +66,19 @@ Page({
     this.data.totalCount += 20;
     wx.hideNavigationBarLoading()
   },
-  onScrollLower:function (event) {
+  // onScrollLower:function (event) {
+  //   var nextUrl = this.data.requestUrl +
+  //       "?start=" + this.data.totalCount + "&count=20";
+  //   util.http(nextUrl, this.processDoubanData)
+  //   wx.showNavigationBarLoading()
+  // },
+  onReachBottom: function (event) {
     var nextUrl = this.data.requestUrl +
-        "?start=" + this.data.totalCount + "&count=20";
+      "?start=" + this.data.totalCount + "&count=20";
     util.http(nextUrl, this.processDoubanData)
     wx.showNavigationBarLoading()
   },
   onPullDownRefresh:function (event) {
-    console.log('ttt')
     var refreshUrl = this.data.requestUrl +
       "?star=0&count=20";
     this.data.movies = {};

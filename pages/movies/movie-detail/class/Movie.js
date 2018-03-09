@@ -1,23 +1,17 @@
-var util = require('../../../utils/util.js');
-import { Movie } from 'class/Movie.js';
-var  app = getApp();
-Page({
-  data: {
-    movie: {}
-  },
-  onLoad: function (options) {
-    var movieId = options.id;
-    var url = app.globalData.doubanBase +
-      "/v2/movie/subject/" + movieId;
-    // util.http(url, this.processDoubanData)
-    var movie = new Movie(url)
-    movie.getMovieData((movie) => {
-      this.setData({
-        movie: movie
-      })
-    })
-  },
-  processDoubanData: function (data) {
+var util = require('../../../../utils/util.js')
+class Movie{
+  constructor(url){
+    this.url = url;
+  }
+  getMovieData(cb){
+    console.log(cb)
+    this.cb = cb;
+    util.http(this.url, this.processDoubanData.bind(this));
+  }
+  processDoubanData(data){
+    if (!data) {
+      return;
+    }
     var director = {
       avatar: "",
       name: "",
@@ -47,16 +41,8 @@ Page({
       castsInfo: util.convertToCastInfos(data.casts),
       summary: data.summary
     }
-    this.setData({
-      movie: movie
-    })
-  },
-  /*查看图片*/
-  viewMoviePostImg: function (e) {
-    var src = e.currentTarget.dataset.src;
-    wx.previewImage({
-      current: src, // 当前显示图片的http链接
-      urls: [src] // 需要预览的图片http链接列表
-    })
+    this.cb(movie);
   }
-})
+}
+
+export {Movie}
